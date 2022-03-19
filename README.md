@@ -1,8 +1,10 @@
 # UniUSBSQMServer
 
+This application came about as a result of the ever growing astrophotography hobby. Starting off with one telescope setup, and having the USB device connected to that imaging setup, then adding a second imaging setup/telescope. I was looking for a way to share the data with both of the imaging setups without the need to replace existing working hardware.
+
 This application provides users of a USB version of the Unihedron Sky Quality Meter to share the data with multiple clients that support the device over TCP. This means that with a single device, multiple telescope imaging setups can access the data simultaneously.
 
-Applications such as Astrophotograpjhy Tool (APT), Nighttime Imaging 'N' Astronomy (N.I.N.A.) can communicate with this application over TCP to obtain the data from the device.
+Applications such as Astrophotography Tool (APT), Nighttime Imaging 'N' Astronomy (N.I.N.A.) can communicate with this application over TCP to obtain the data from the device.
 
 UniUSBSQMServer will poll the USB device on a defined interval and retain the latest data in memory and serve this data to the client application.
 
