@@ -15,3 +15,6 @@ The application supports the 'ix', 'rx' and 'ux' messages of the Unihedron proto
  - Naked Eye Limiting Magnitude (calculated)
 
 ![UniUSBSQMServer](https://user-images.githubusercontent.com/4674288/159138973-76b8982f-e9a1-4622-8704-303bc07a9c03.PNG)
+
+
+# For more information and features, visit the [wiki pages](https://github.com/Daves-Astrophotography/UniUSBSQMServer/wiki).
