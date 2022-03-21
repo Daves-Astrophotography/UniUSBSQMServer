@@ -20,4 +20,4 @@ The application supports the 'ix', 'rx' and 'ux' messages of the Unihedron proto
 # For more information and features, visit the [wiki pages](https://github.com/Daves-Astrophotography/UniUSBSQMServer/wiki).
 
 There is also a introduction video and walkthrough on [Youtube](https://www.youtube.com/embed/dg_9cOM48ew):<br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dg_9cOM48ew" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/dg_9cOM48ew/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Video Title")
