@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 namespace UniUSBSQMServer.Forms
 {
     public partial class DataStoreRecordsForm : Form
@@ -17,7 +8,10 @@ namespace UniUSBSQMServer.Forms
             InitializeComponent();
 
             listBoxStore.Items.Clear();
-            listBoxStore.DataSource = new BindingSource(DataStore.GetAllData(),null);
+            
+            listBoxStore.Items.AddRange(DataStore.GetAllData().ToArray());
+
+            ScrollToLatest();
 
             labelRecordCount.Text = $"Records: {listBoxStore.Items.Count}";    
 
@@ -27,6 +21,7 @@ namespace UniUSBSQMServer.Forms
 
         private void Store_DataStoreCleared(object? sender, EventArgs e)
         {
+            listBoxStore.Items.Clear();
             labelRecordCount.Text = $"Records: {listBoxStore.Items.Count}";
         }
 
@@ -39,21 +34,26 @@ namespace UniUSBSQMServer.Forms
                 return;
             }
 
-            listBoxStore.DataSource = new BindingSource(DataStore.GetAllData(), null);
+            listBoxStore.Items.Add(DataStore.GetLatestRecord().ToString());
+            
             labelUpdated.Visible = true;
 
             labelRecordCount.Text = $"Records: {listBoxStore.Items.Count}";
 
             if (checkBoxAutoScroll.Checked)
             {
-                //Scroll to bottom
-                int visibleItems = listBoxStore.ClientSize.Height / listBoxStore.ItemHeight;
-                listBoxStore.TopIndex = Math.Max(listBoxStore.Items.Count - visibleItems + 1, 0);
+                ScrollToLatest();
             }
             
-
             //start a new background task to hide the label
             Task.Delay(500).ContinueWith(t => HideUpdatedLabel());
+        }
+
+        private void ScrollToLatest()
+        {
+            //Scroll to bottom
+            int visibleItems = listBoxStore.ClientSize.Height / listBoxStore.ItemHeight;
+            listBoxStore.TopIndex = Math.Max(listBoxStore.Items.Count - visibleItems + 1, 0);
         }
 
         private void HideUpdatedLabel()
