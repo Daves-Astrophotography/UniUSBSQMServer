@@ -326,10 +326,25 @@ namespace UniUSBSQMServer
             
             firstPointsDrawn = true;    //Allow the vertical joins to be added the next update.
 
-            //Join the trend record to the master background trend
+            //Join the trend record to the master background trend, check its size if needed
             if (backgroundMasterTrend == null)
             {
                 backgroundMasterTrend = new(1,pictureBoxTrend.Height);
+            } else
+            {
+                //Check if there is a logging limit and crop the mastertrend accordingly
+                if (!SettingsManager.MemoryLoggingNoLimit && backgroundMasterTrend.Width > SettingsManager.MemoryLoggingRecordLimit)
+                {
+                    Bitmap newBitmap = new Bitmap(SettingsManager.MemoryLoggingRecordLimit, backgroundMasterTrend.Height);
+                    using (Graphics gNew = Graphics.FromImage(newBitmap))
+                    {
+                        Rectangle cloneRect = new Rectangle(backgroundMasterTrend.Width - SettingsManager.MemoryLoggingRecordLimit, 0, SettingsManager.MemoryLoggingRecordLimit, backgroundMasterTrend.Height);
+                        Bitmap clone = backgroundMasterTrend.Clone(cloneRect, backgroundMasterTrend.PixelFormat);
+                        
+                        gNew.DrawImage(clone,0,0);
+                    }
+                    backgroundMasterTrend = newBitmap;
+                }
             }
             
             Bitmap bitmap = new (backgroundMasterTrend.Width + backgroundTrendRecord.Width, Math.Max(backgroundMasterTrend.Height, backgroundTrendRecord.Height));
