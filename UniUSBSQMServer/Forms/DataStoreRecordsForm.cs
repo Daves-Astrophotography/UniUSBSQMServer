@@ -34,6 +34,15 @@ namespace UniUSBSQMServer.Forms
                 return;
             }
 
+            if (!SettingsManager.MemoryLoggingNoLimit && listBoxStore.Items.Count >= SettingsManager.MemoryLoggingRecordLimit)
+            {
+                //prune the list to one less than limit, to make space for the new entry
+                while (listBoxStore.Items.Count >= SettingsManager.MemoryLoggingRecordLimit)
+                {
+                    listBoxStore.Items.RemoveAt(0);
+                }
+            }
+
             listBoxStore.Items.Add(DataStore.GetLatestRecord().ToString());
             
             labelUpdated.Visible = true;
