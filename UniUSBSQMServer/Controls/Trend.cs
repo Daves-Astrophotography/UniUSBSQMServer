@@ -64,15 +64,11 @@ namespace UniUSBSQMServer
 
         private void Settings_SettingsChanged(object? sender, EventArgs e)
         {
-            SetupTrend();
-            ClearCanvas();
-        }
-
-        private void SetupTrend()
-        {
-            trendMaximum = Convert.ToDouble(SettingsManager.TrendMax);
-            trendMinimum = Convert.ToDouble(SettingsManager.TrendMin);
-            _range = trendMaximum - trendMinimum;
+            if (trendMaximum != Convert.ToDouble(SettingsManager.TrendMax) || trendMinimum != Convert.ToDouble(SettingsManager.TrendMin))
+            {
+                SetupTrend();
+                ClearCanvas();
+            }
 
             checkBoxRawMPAS.Checked = SettingsManager.TrendDrawRawMPas;
             checkBoxAvgMPAS.Checked = SettingsManager.TrendDrawAvgMPas;
@@ -83,6 +79,13 @@ namespace UniUSBSQMServer
             checkBoxAvgMPAS.ForeColor = SettingsManager.TrendAvgMPasColor;
             checkBoxTemp.ForeColor = SettingsManager.TrendTempColor;
             checkBoxNELM.ForeColor = SettingsManager.TrendNELMColor;
+        }
+
+        private void SetupTrend()
+        {
+            trendMaximum = Convert.ToDouble(SettingsManager.TrendMax);
+            trendMinimum = Convert.ToDouble(SettingsManager.TrendMin);
+            _range = trendMaximum - trendMinimum;
         }
 
 
