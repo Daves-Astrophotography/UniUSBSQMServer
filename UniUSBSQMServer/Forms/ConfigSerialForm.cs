@@ -43,12 +43,12 @@ namespace UniUSBSQMServer.Forms
             }
             
             //Check if the serial port is currently connected, user cannot change if connected.
-            if (SerialManager.ConnectionState == Enums.SerialConnectedStates.Connected)
-            {
-                comboBoxSerialPorts.Enabled = false;
-            } else
+            if (SerialManager.ConnectionState == Enums.SerialConnectedStates.Disconnected)
             {
                 comboBoxSerialPorts.Enabled = true;
+            } else
+            {
+                comboBoxSerialPorts.Enabled = false;
             }
             
             //Get the current Interval

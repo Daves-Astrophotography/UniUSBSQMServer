@@ -21,6 +21,14 @@ namespace UniUSBSQMServer.Forms
 
             numericUpDownPort.Value = SettingsManager.ServerPort;
 
+            if (NetworkManager.ServerState == Enums.ServerRunningStates.Running)
+            {
+                numericUpDownPort.Enabled = false;
+            } else
+            {
+                numericUpDownPort.Enabled = true;
+            }
+
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)

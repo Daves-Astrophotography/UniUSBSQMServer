@@ -117,7 +117,7 @@ namespace UniUSBSQMServer
         {
             if (_serverState == Enums.ServerRunningStates.Stopped)
             {
-                _serverPort = SettingsManager.ServerPort;//NetworkManager.ServerPort;
+                _serverPort = SettingsManager.ServerPort;;
 
                 tokenSource = new();
                 token = tokenSource.Token;

@@ -65,6 +65,7 @@ namespace UniUSBSQMServer
         private void Settings_SettingsChanged(object? sender, EventArgs e)
         {
             SetupTrend();
+            ClearCanvas();
         }
 
         private void SetupTrend()
@@ -89,6 +90,9 @@ namespace UniUSBSQMServer
         {
             backgroundTrendRecord = null;
             backgroundMasterTrend = null;
+
+            firstPointsDrawn = false;
+
 
             pictureBoxTrend.Width = 1;
             using Graphics gPen = pictureBoxPens.CreateGraphics();

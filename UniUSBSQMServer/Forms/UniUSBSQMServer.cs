@@ -172,8 +172,6 @@ namespace UniUSBSQMServer.Forms
 
                 buttonServerStart.Text = "Stop";
 
-                serverToolStripMenuItem.Enabled = false;
-
             } else
             {
                 toolStripStatusLabelServerStatus.BackColor = Color.MistyRose;
@@ -182,7 +180,6 @@ namespace UniUSBSQMServer.Forms
                 toolStripStatusLabelClientCount.BackColor = Color.FromKnownColor(KnownColor.Control);
                 buttonServerStart.Text = "Start";
 
-                serverToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -242,9 +239,6 @@ namespace UniUSBSQMServer.Forms
             
             if (e.ConnectedState == Enums.SerialConnectedStates.Connected)
             {
-
-                serialToolStripMenuItem.Enabled = false;
-                loggingToolStripMenuItem.Enabled = false;
                 buttonSerialConnect.Text = "Disconnect";
                 toolStripStatusSerialState.Text = "Serial: Connected";
                 toolStripStatusSerialState.BackColor = Color.PaleGreen;
@@ -252,27 +246,21 @@ namespace UniUSBSQMServer.Forms
                 ixUnitInformationToolStripMenuItem.Enabled = true;
                 rxAveragedDataToolStripMenuItem.Enabled = true;
                 uxUnaveragedDataToolStripMenuItem.Enabled = true;
-                trendUnitsToolStripMenuItem.Enabled = false;
 
 
                 //Allow the server to start
                 buttonServerStart.Enabled = true;
 
             } else if (e.ConnectedState == Enums.SerialConnectedStates.Retry) {
-                serialToolStripMenuItem.Enabled = false;
-                loggingToolStripMenuItem.Enabled = false;
                 toolStripStatusSerialState.Text = "Serial: Retry";
                 toolStripStatusSerialState.BackColor = Color.LightYellow;
 
                 ixUnitInformationToolStripMenuItem.Enabled = false;
                 rxAveragedDataToolStripMenuItem.Enabled = false;
                 uxUnaveragedDataToolStripMenuItem.Enabled = false;
-                trendUnitsToolStripMenuItem.Enabled = false;
             }
             else
             {
-                serialToolStripMenuItem.Enabled = true;
-                loggingToolStripMenuItem.Enabled = true;
                 buttonSerialConnect.Text = "Connect";
                 toolStripStatusSerialState.Text = "Serial: Disconnected";
                 toolStripStatusSerialState.BackColor = Color.MistyRose;
@@ -280,8 +268,6 @@ namespace UniUSBSQMServer.Forms
                 ixUnitInformationToolStripMenuItem.Enabled = false;
                 rxAveragedDataToolStripMenuItem.Enabled = false;
                 uxUnaveragedDataToolStripMenuItem.Enabled = false;
-
-                trendUnitsToolStripMenuItem.Enabled = true;
 
                 //Block the Server Start/Stop
                 buttonServerStart.Enabled = false;

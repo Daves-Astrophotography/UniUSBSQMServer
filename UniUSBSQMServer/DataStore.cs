@@ -85,7 +85,7 @@ namespace UniUSBSQMServer
         private static bool _fileLoggingUseDefaultPath = false;
         private static string _fileLoggingCustomPath = Path.Combine(Application.StartupPath, "logs");
         //Session Logging Filename - create new name each time app is started.
-        private static readonly string filename = $"USB_SQM_Server_{ DateTime.Now:yyyy-MM-dd-HH-mm-ss zz}.log";
+        private static string filename = $"USB_SQM_Server_{ DateTime.Now:yyyy-MM-dd-HH-mm-ss zz}.log";
 
 
         //Events
@@ -138,6 +138,19 @@ namespace UniUSBSQMServer
             _memoryLoggingIntervalSeconds = SettingsManager.MemoryLoggingInterval;
             _memoryLoggingRecordLimit = SettingsManager.MemoryLoggingRecordLimit;
             _memoryLoggingNoLimit = SettingsManager.MemoryLoggingNoLimit;
+
+            _fileLoggingEnabled = SettingsManager.FileLoggingEnabled;
+            _fileLoggingUseDefaultPath = SettingsManager.FileLoggingDefaultPath;
+            _fileLoggingCustomPath = SettingsManager.FileLoggingCustomPath;
+
+            //Check default logging folder folder path Exists, create if not
+            if (!Directory.Exists(Path.Combine(Application.StartupPath, "logs")))
+            {
+                Directory.CreateDirectory(Path.Combine(Application.StartupPath, "logs"));
+            }
+
+            //Create the filename
+            filename = $"USB_SQM_Server_{ DateTime.Now:yyyy-MM-dd-HH-mm-ss zz}.log";
         }
 
         private void Instance_SerialStateChanged(object? sender, SerialManagerStateChangedEventArgs e)
