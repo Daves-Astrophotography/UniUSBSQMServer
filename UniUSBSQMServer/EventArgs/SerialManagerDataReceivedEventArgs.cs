@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace UniUSBSQMServer
 {
     public sealed class SerialManagerDataReceivedEventArgs : EventArgs

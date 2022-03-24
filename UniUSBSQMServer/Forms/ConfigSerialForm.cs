@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using System.IO.Ports;
-
+﻿
 namespace UniUSBSQMServer.Forms
 {
     public partial class ConfigSerialForm : Form
@@ -63,10 +52,9 @@ namespace UniUSBSQMServer.Forms
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-
             SettingsManager.SerialPortName = comboBoxSerialPorts.SelectedItem.ToString()??"COM1";
-
             SettingsManager.SerialPortInterval = Convert.ToInt32(Math.Round(numericUpDownInterval.Value,0));
+            SettingsManager.EndSettingsChange();
         }
     }
 }

@@ -1,6 +1,4 @@
 
-using UniUSBSQMServer.Forms;
-
 namespace UniUSBSQMServer.Forms
 {
     public partial class UniUSBSQMServer : Form

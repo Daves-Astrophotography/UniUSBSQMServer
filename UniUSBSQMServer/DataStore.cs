@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-
+﻿
 namespace UniUSBSQMServer
 {
     internal class DataStore
@@ -101,7 +95,7 @@ namespace UniUSBSQMServer
             }
             else
             {
-                return data.Last();
+                return data.Last().Copy(); //send back a copy of the point
             }
         }
 
@@ -113,7 +107,7 @@ namespace UniUSBSQMServer
             }
             else
             {
-                return data;
+                return data.ToList(); // Send back a copy of the list.
             }
         }
 
@@ -138,6 +132,8 @@ namespace UniUSBSQMServer
             _memoryLoggingIntervalSeconds = SettingsManager.MemoryLoggingInterval;
             _memoryLoggingRecordLimit = SettingsManager.MemoryLoggingRecordLimit;
             _memoryLoggingNoLimit = SettingsManager.MemoryLoggingNoLimit;
+
+            memoryLoggingTimer.Interval = _memoryLoggingIntervalSeconds * 1000;
 
             _fileLoggingEnabled = SettingsManager.FileLoggingEnabled;
             _fileLoggingUseDefaultPath = SettingsManager.FileLoggingDefaultPath;

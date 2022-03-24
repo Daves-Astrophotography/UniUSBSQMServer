@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 namespace UniUSBSQMServer.Forms
 {
     public partial class ConfigServerForm : Form
@@ -37,12 +28,9 @@ namespace UniUSBSQMServer.Forms
         }
 
         private void ButtonOK_Click(object sender, EventArgs e)
-        {
-            //Set the port only if disconnected.
-            if (NetworkManager.ServerState == Enums.ServerRunningStates.Stopped)
-            {
-                SettingsManager.ServerPort = Convert.ToInt32(Math.Round(numericUpDownPort.Value, 0));
-            }
+        { 
+            SettingsManager.ServerPort = Convert.ToInt32(Math.Round(numericUpDownPort.Value, 0));
+            SettingsManager.EndSettingsChange();
         }
     }
 }

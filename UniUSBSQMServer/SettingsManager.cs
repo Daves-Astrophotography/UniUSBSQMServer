@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace UniUSBSQMServer
 {
@@ -36,11 +31,14 @@ namespace UniUSBSQMServer
         }
 
         //Constants
-        public const int LOGGING_MINIMUM_INTERVAL_SECONDS = 10;
-        public const int LOGGING_MAXIMUM_INTERVAL_SECONDS = 3600;
-
         public const int SERIAL_POLL_MAXIMUM_INTERVAL_SECONDS = 3600;
         public const int SERIAL_POLL_MINIMUM_INTERVAL_SECONDS = 10;
+
+        public const int LOGGING_MINIMUM_INTERVAL_SECONDS = 1;
+        public const int LOGGING_MAXIMUM_INTERVAL_SECONDS = 3600;
+
+        public const int LOGGING_MINIMUM_RECORDS = 10;
+        public const int LOGGING_MAXIMUM_RECORDS = 10000;
 
         public const int SERVER_PORT_MAXIMUM = 65535;
         public const int SERVER_PORT_MINIMUM = 1024;
@@ -96,7 +94,6 @@ namespace UniUSBSQMServer
             set
             {
                 _comPortName = value;
-                SaveSettings();
             }
         }
 
@@ -109,7 +106,6 @@ namespace UniUSBSQMServer
             set
             {
                 _comPortInterval = value;    
-                SaveSettings();
             }
         }
 
@@ -123,7 +119,6 @@ namespace UniUSBSQMServer
             set
             {
                 _serverPort = value;
-                SaveSettings();
             }
         }
 
@@ -137,7 +132,6 @@ namespace UniUSBSQMServer
             set
             {
                 _temperatureUnits = value;
-                SaveSettings();
             }
         }
 
@@ -150,7 +144,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendMax = value;
-                SaveSettings();
             }
         }
 
@@ -163,7 +156,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendMin = value;
-                SaveSettings();
             }
         }
 
@@ -177,7 +169,6 @@ namespace UniUSBSQMServer
             set 
             {
                 _trendDrawRawMPas = value;
-                SaveSettings();
             }
         }
         public static bool TrendDrawAvgMPas
@@ -189,7 +180,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendDrawAvgMPas = value;
-                SaveSettings();
             }
         }
 
@@ -202,7 +192,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendDrawTemp = value;
-                SaveSettings();
             }
         }
 
@@ -215,7 +204,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendDrawNELM = value;
-                SaveSettings();
             }
         }
 
@@ -229,7 +217,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendRawMPasColor = value;
-                SaveSettings();
             }
         }
         public static Color TrendAvgMPasColor
@@ -241,7 +228,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendAvgMPasColor = value;
-                SaveSettings();
             }
         }
         public static Color TrendTempColor
@@ -253,7 +239,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendTempColor = value;
-                SaveSettings();
             }
         }
         public static Color TrendNELMColor
@@ -265,7 +250,6 @@ namespace UniUSBSQMServer
             set
             {
                 _trendNELMColor = value;
-                SaveSettings();
             }
         }
 
@@ -279,7 +263,6 @@ namespace UniUSBSQMServer
             set
             {
                 _memoryLoggingInterval = value;
-                SaveSettings();
             }
         }
         public static int MemoryLoggingRecordLimit
@@ -291,7 +274,6 @@ namespace UniUSBSQMServer
             set
             {
                 _memoryLoggingRecordLimit = value;
-                SaveSettings();
             }
         }
         public static bool MemoryLoggingNoLimit
@@ -303,7 +285,6 @@ namespace UniUSBSQMServer
             set
             {
                 _memoryLoggingNoLimit = value;
-                SaveSettings();
             }
         }
 
@@ -317,7 +298,6 @@ namespace UniUSBSQMServer
             set
             {
                 _fileLoggingEnabled = value;
-                SaveSettings();
             }
         }
 
@@ -330,7 +310,6 @@ namespace UniUSBSQMServer
             set
             {
                 _fileLoggingUseDefaultPath = value;
-                SaveSettings();
             }
         }
 
@@ -340,8 +319,12 @@ namespace UniUSBSQMServer
             set
             {
                 _fileLoggingCustomPath = value;
-                SaveSettings();
             }
+        }
+
+        public static void EndSettingsChange()
+        {
+            SaveSettings();
         }
 
         static void LoadSettings()

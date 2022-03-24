@@ -1,5 +1,4 @@
 ﻿
-
 namespace UniUSBSQMServer.Forms
 {
     public partial class ConfigTrendForm : Form
@@ -67,6 +66,8 @@ namespace UniUSBSQMServer.Forms
             SettingsManager.TrendAvgMPasColor = labelAvgMPasColor.BackColor;
             SettingsManager.TrendTempColor = labelTempColor.BackColor;
             SettingsManager.TrendNELMColor = labelNELMColor.BackColor;
+
+            SettingsManager.EndSettingsChange();
 
         }
 

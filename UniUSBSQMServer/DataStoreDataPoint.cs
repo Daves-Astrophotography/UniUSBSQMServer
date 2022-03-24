@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace UniUSBSQMServer
 {
     public class DataStoreDataPoint
@@ -36,6 +31,19 @@ namespace UniUSBSQMServer
         public override string ToString()
         {
             return $"{Timestamp:yyyy-MM-dd HH:mm:ss}: Raw: {RawMPAS:#0.00} mag/arcsec\u00b2, Avg: {AvgMPAS:#0.00} mag/arcsec\u00b2, Temp: {AvgTemp:#0.0} \u00b0C, NELM: {NELM:#0.00}";
+        }
+
+        public DataStoreDataPoint Copy()
+        {
+            DataStoreDataPoint newPoint = (DataStoreDataPoint)this.MemberwiseClone();
+            newPoint.Timestamp = this.Timestamp;
+            newPoint.RawMPAS = this.RawMPAS;
+            newPoint.AvgMPAS = this.AvgMPAS;
+            newPoint.NELM = this.NELM;
+            newPoint.AvgTemp = this.AvgTemp;
+
+            return newPoint;
+
         }
 
     }

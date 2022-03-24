@@ -34,8 +34,8 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxMemoryLogging = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelRecordsLimits = new System.Windows.Forms.Label();
+            this.labelIntervalLimits = new System.Windows.Forms.Label();
             this.radioButtonNoLimitRecords = new System.Windows.Forms.RadioButton();
             this.radioButtonMaxRecordsNumber = new System.Windows.Forms.RadioButton();
             this.labelEstimateMemoryDuration = new System.Windows.Forms.Label();
@@ -123,8 +123,8 @@
             // 
             // groupBoxMemoryLogging
             // 
-            this.groupBoxMemoryLogging.Controls.Add(this.label6);
-            this.groupBoxMemoryLogging.Controls.Add(this.label5);
+            this.groupBoxMemoryLogging.Controls.Add(this.labelRecordsLimits);
+            this.groupBoxMemoryLogging.Controls.Add(this.labelIntervalLimits);
             this.groupBoxMemoryLogging.Controls.Add(this.radioButtonNoLimitRecords);
             this.groupBoxMemoryLogging.Controls.Add(this.radioButtonMaxRecordsNumber);
             this.groupBoxMemoryLogging.Controls.Add(this.labelEstimateMemoryDuration);
@@ -140,23 +140,23 @@
             this.groupBoxMemoryLogging.TabStop = false;
             this.groupBoxMemoryLogging.Text = "In Memory Data Logging";
             // 
-            // label6
+            // labelRecordsLimits
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(324, 100);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(157, 21);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "(min: 10 max: 10000)";
+            this.labelRecordsLimits.AutoSize = true;
+            this.labelRecordsLimits.Location = new System.Drawing.Point(324, 100);
+            this.labelRecordsLimits.Name = "labelRecordsLimits";
+            this.labelRecordsLimits.Size = new System.Drawing.Size(157, 21);
+            this.labelRecordsLimits.TabIndex = 16;
+            this.labelRecordsLimits.Text = "(min: 10 max: 10000)";
             // 
-            // label5
+            // labelIntervalLimits
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(324, 31);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(148, 21);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "(min: 10 max: 3600)";
+            this.labelIntervalLimits.AutoSize = true;
+            this.labelIntervalLimits.Location = new System.Drawing.Point(324, 31);
+            this.labelIntervalLimits.Name = "labelIntervalLimits";
+            this.labelIntervalLimits.Size = new System.Drawing.Size(148, 21);
+            this.labelIntervalLimits.TabIndex = 15;
+            this.labelIntervalLimits.Text = "(min: 10 max: 3600)";
             // 
             // radioButtonNoLimitRecords
             // 
@@ -373,8 +373,8 @@
         private RadioButton radioButtonDefaultPath;
         private CheckBox checkBoxFileLogging;
         private Label label3;
-        private Label label6;
-        private Label label5;
+        private Label labelRecordsLimits;
+        private Label labelIntervalLimits;
         private Button buttonOpenDefaultPath;
         private Button buttonOpenCustomPath;
     }

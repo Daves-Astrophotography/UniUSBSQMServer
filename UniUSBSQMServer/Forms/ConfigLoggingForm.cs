@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Configuration;
-
+﻿
 namespace UniUSBSQMServer
 {
     public partial class ConfigLoggingForm : Form
@@ -19,6 +9,7 @@ namespace UniUSBSQMServer
 
             numericUpDownInterval.Minimum = SettingsManager.LOGGING_MINIMUM_INTERVAL_SECONDS;
             numericUpDownInterval.Maximum = SettingsManager.LOGGING_MAXIMUM_INTERVAL_SECONDS;
+            labelIntervalLimits.Text = $"Min: {SettingsManager.LOGGING_MINIMUM_INTERVAL_SECONDS} , Max: {SettingsManager.LOGGING_MAXIMUM_INTERVAL_SECONDS}";
             
             //Set the form values to minimum if there is an error
             try
@@ -41,6 +32,7 @@ namespace UniUSBSQMServer
             }
   
             
+            
             if (SettingsManager.MemoryLoggingNoLimit)
             {
                 radioButtonNoLimitRecords.Checked = true;
@@ -48,7 +40,21 @@ namespace UniUSBSQMServer
             {
                 radioButtonMaxRecordsNumber.Checked = true;
             }
+
+            numericUpDownRecords.Minimum = SettingsManager.LOGGING_MINIMUM_RECORDS;
+            numericUpDownRecords.Maximum = SettingsManager.LOGGING_MAXIMUM_RECORDS;
+            labelRecordsLimits.Text = $"Min: {SettingsManager.LOGGING_MINIMUM_RECORDS} , Max: {SettingsManager.LOGGING_MAXIMUM_RECORDS}";
             
+            try 
+            {
+                numericUpDownRecords.Value = SettingsManager.MemoryLoggingRecordLimit;
+            } 
+            catch (Exception)
+            {
+                numericUpDownRecords.Value= SettingsManager.LOGGING_MINIMUM_RECORDS;
+
+            }
+
             checkBoxFileLogging.Checked = SettingsManager.FileLoggingEnabled;
 
             if (SettingsManager.FileLoggingDefaultPath)
@@ -107,6 +113,8 @@ namespace UniUSBSQMServer
             SettingsManager.FileLoggingEnabled = checkBoxFileLogging.Checked;
             SettingsManager.FileLoggingDefaultPath = radioButtonDefaultPath.Checked;
             SettingsManager.FileLoggingCustomPath = labelFilePath.Text;
+
+            SettingsManager.EndSettingsChange();
         }
 
         private void ButtonSelectFolder_Click(object sender, EventArgs e)
