@@ -72,6 +72,7 @@
             this.checkBoxRawMPAS.TabIndex = 0;
             this.checkBoxRawMPAS.Text = "Raw MPAS";
             this.checkBoxRawMPAS.UseVisualStyleBackColor = true;
+            this.checkBoxRawMPAS.CheckedChanged += new System.EventHandler(this.CheckBoxLayersChanged);
             // 
             // checkBoxAvgMPAS
             // 
@@ -85,6 +86,7 @@
             this.checkBoxAvgMPAS.TabIndex = 1;
             this.checkBoxAvgMPAS.Text = "Avg MPAS";
             this.checkBoxAvgMPAS.UseVisualStyleBackColor = true;
+            this.checkBoxAvgMPAS.CheckedChanged += new System.EventHandler(this.CheckBoxLayersChanged);
             // 
             // checkBoxTemp
             // 
@@ -98,6 +100,7 @@
             this.checkBoxTemp.TabIndex = 2;
             this.checkBoxTemp.Text = "Temp";
             this.checkBoxTemp.UseVisualStyleBackColor = true;
+            this.checkBoxTemp.CheckedChanged += new System.EventHandler(this.CheckBoxLayersChanged);
             // 
             // checkBoxNELM
             // 
@@ -111,6 +114,7 @@
             this.checkBoxNELM.TabIndex = 3;
             this.checkBoxNELM.Text = "NELM";
             this.checkBoxNELM.UseVisualStyleBackColor = true;
+            this.checkBoxNELM.CheckedChanged += new System.EventHandler(this.CheckBoxLayersChanged);
             // 
             // buttonRunStop
             // 
