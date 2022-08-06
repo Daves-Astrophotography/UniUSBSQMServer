@@ -219,7 +219,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.toolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(534, 25);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(565, 25);
             this.toolStripStatusLabel.Spring = true;
             this.toolStripStatusLabel.Text = "Dave\'s Astrophotography";
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -470,6 +470,7 @@
             // 
             // flowLayoutPanelLatestData
             // 
+            this.flowLayoutPanelLatestData.AutoSize = true;
             this.flowLayoutPanelLatestData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanelLatestData.Controls.Add(this.label5);
             this.flowLayoutPanelLatestData.Controls.Add(this.labelLatestRawMag);
@@ -484,7 +485,7 @@
             this.flowLayoutPanelLatestData.Controls.Add(this.labelNELMColor);
             this.flowLayoutPanelLatestData.Location = new System.Drawing.Point(12, 146);
             this.flowLayoutPanelLatestData.Name = "flowLayoutPanelLatestData";
-            this.flowLayoutPanelLatestData.Size = new System.Drawing.Size(1133, 21);
+            this.flowLayoutPanelLatestData.Size = new System.Drawing.Size(794, 21);
             this.flowLayoutPanelLatestData.TabIndex = 22;
             // 
             // label8
@@ -537,7 +538,9 @@
             // 
             // labelNELMColor
             // 
+            this.labelNELMColor.BackColor = System.Drawing.Color.White;
             this.labelNELMColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelNELMColor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.labelNELMColor.Location = new System.Drawing.Point(751, 0);
             this.labelNELMColor.Name = "labelNELMColor";
             this.labelNELMColor.Size = new System.Drawing.Size(40, 21);

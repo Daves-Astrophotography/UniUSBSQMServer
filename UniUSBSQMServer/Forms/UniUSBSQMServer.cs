@@ -201,7 +201,7 @@ namespace UniUSBSQMServer.Forms
             
             //Display Average Data
             if (data[0] == "r")
-            {                
+            {
                 labelLatestAvMag.Text = $"{Utility.ConvertDataToDouble(data[1])} mag/arcsec\u00b2";
                 if (SettingsManager.TemperatureUnits == Enums.TemperatureUnits.Centrigrade)
                 {
@@ -212,7 +212,7 @@ namespace UniUSBSQMServer.Forms
                     labelLatestTemp.Text = $"{Utility.ConvertTempCtoF(Utility.ConvertDataToDouble(data[5]))} \u2109";
                 }
                 
-                labelNELM.Text = Utility.CalcNELM(Utility.ConvertDataToDouble(data[1])).ToString("#0.00");
+                labelNELM.Text = Utility.CalcNELM(Utility.ConvertDataToDouble(data[1])).ToString("N1");             //V1.3 - Add decimal point digit format 
                 labelBortle.Text = Utility.GetBortleNumber(Utility.CalcNELM(Utility.ConvertDataToDouble(data[1]))).ToString();
                 labelNELMColor.BackColor = Utility.GetColorByNELM(Utility.CalcNELM(Utility.ConvertDataToDouble(data[1])));
             }

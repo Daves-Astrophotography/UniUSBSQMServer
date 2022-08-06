@@ -15,13 +15,14 @@ namespace UniUSBSQMServer
                     numericString = string.Concat(numericString, c.ToString());
                 }
             }
-            Double number = Convert.ToDouble(numericString);
+            Double number = Convert.ToDouble(numericString,System.Globalization.CultureInfo.InvariantCulture);  //Added culturalinfo handler as was broken on ',' period cultures.
+                                                                                                                //Github Issue 12: https://github.com/Daves-Astrophotography/UniUSBSQMServer/issues/12
             return number;
         }
 
         public static double CalcNELM(double mpas)
         {
-            double mag = Convert.ToDouble(mpas);
+            double mag = mpas;          //v1.3 - removed unnecessary Convert.ToDouble, value is already coming in as double
             double power = (4.316 - (mag / 5));
             double interim = System.Math.Pow(10.0, power);
             double nelm = 7.93 - 5 * System.Math.Log10(interim + 1.0);
