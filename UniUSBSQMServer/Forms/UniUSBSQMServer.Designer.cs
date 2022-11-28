@@ -57,6 +57,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.labelLastSerialResponse = new System.Windows.Forms.Label();
             this.groupBoxSerial = new System.Windows.Forms.GroupBox();
+            this.labelSimulateRate = new System.Windows.Forms.Label();
+            this.trackBarSimulateRate = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
             this.labelServerPort = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -90,6 +92,7 @@
             this.menuStripMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
             this.groupBoxSerial.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSimulateRate)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanelLatestData.SuspendLayout();
             this.contextMenuStripMemory.SuspendLayout();
@@ -316,7 +319,7 @@
             // 
             // buttonSerialConnect
             // 
-            this.buttonSerialConnect.Location = new System.Drawing.Point(228, 27);
+            this.buttonSerialConnect.Location = new System.Drawing.Point(233, 27);
             this.buttonSerialConnect.Name = "buttonSerialConnect";
             this.buttonSerialConnect.Size = new System.Drawing.Size(138, 41);
             this.buttonSerialConnect.TabIndex = 6;
@@ -346,6 +349,8 @@
             // 
             // groupBoxSerial
             // 
+            this.groupBoxSerial.Controls.Add(this.labelSimulateRate);
+            this.groupBoxSerial.Controls.Add(this.trackBarSimulateRate);
             this.groupBoxSerial.Controls.Add(this.label1);
             this.groupBoxSerial.Controls.Add(this.labelLastSerialResponse);
             this.groupBoxSerial.Controls.Add(this.labelSerialInterval);
@@ -358,6 +363,28 @@
             this.groupBoxSerial.Size = new System.Drawing.Size(614, 106);
             this.groupBoxSerial.TabIndex = 12;
             this.groupBoxSerial.TabStop = false;
+            // 
+            // labelSimulateRate
+            // 
+            this.labelSimulateRate.Location = new System.Drawing.Point(377, 19);
+            this.labelSimulateRate.Name = "labelSimulateRate";
+            this.labelSimulateRate.Size = new System.Drawing.Size(231, 21);
+            this.labelSimulateRate.TabIndex = 12;
+            this.labelSimulateRate.Text = "Simulate Rate of Change (1-5)";
+            this.labelSimulateRate.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // trackBarSimulateRate
+            // 
+            this.trackBarSimulateRate.AutoSize = false;
+            this.trackBarSimulateRate.LargeChange = 2;
+            this.trackBarSimulateRate.Location = new System.Drawing.Point(377, 43);
+            this.trackBarSimulateRate.Maximum = 5;
+            this.trackBarSimulateRate.Minimum = 1;
+            this.trackBarSimulateRate.Name = "trackBarSimulateRate";
+            this.trackBarSimulateRate.Size = new System.Drawing.Size(231, 25);
+            this.trackBarSimulateRate.TabIndex = 11;
+            this.trackBarSimulateRate.Value = 1;
+            this.trackBarSimulateRate.ValueChanged += new System.EventHandler(this.trackBarSimulateRate_ValueChanged);
             // 
             // label4
             // 
@@ -662,6 +689,7 @@
             this.statusStripMain.PerformLayout();
             this.groupBoxSerial.ResumeLayout(false);
             this.groupBoxSerial.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSimulateRate)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.flowLayoutPanelLatestData.ResumeLayout(false);
@@ -732,5 +760,7 @@
         private ToolStripMenuItem viewLatestResponsesToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem trendUnitsToolStripMenuItem;
+        private Label labelSimulateRate;
+        private TrackBar trackBarSimulateRate;
     }
 }

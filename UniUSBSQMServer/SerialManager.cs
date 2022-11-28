@@ -1,4 +1,5 @@
-﻿using UniUSBSQMServer.Enums;
+﻿using System.Security.Policy;
+using UniUSBSQMServer.Enums;
 
 namespace UniUSBSQMServer
 {
@@ -42,12 +43,18 @@ namespace UniUSBSQMServer
             //noResponse Timer Tick Handler
             _noResponseTimer.Tick += NoResponseTimer_Tick;
 
+            simulateManager.SimulatorDataReceived += SimulatorDataReceivedHandler;
+
         }
+
 
         private Enums.SerialConnectedStates _connectionState = SerialConnectedStates.Disconnected; 
         private static string _serialPortName = "";
         private static int _serialPortIntervalSeconds = 30;
         private readonly SettingsManager _settingsManager;
+
+        private static SimulateManager simulateManager = SimulateManager.Instance;
+        
 
 
         //Serial Port
@@ -124,12 +131,19 @@ namespace UniUSBSQMServer
 
         private void RefreshTimer_Tick(object? sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Timer Tick Serial Poll");
-                                    
-            //We will read both the standard and the unaveraged on each poll, the ix command doesn't change and is read on first connecion.
-            SendCommand("rx");
+            
+            if (_serialPortName == "Simulator")
+            {
+                SimulateManager.GetMessageRx();
+                SimulateManager.GetMessageUx();
+            }
+            else
+            {
+                //We will read both the standard and the unaveraged on each poll, the ix command doesn't change and is read on first connecion.
+                SendCommand("rx");
 
-            SendCommand("ux");
+                SendCommand("ux");
+            }
         }
 
         public static Enums.SerialConnectedStates ConnectionState
@@ -169,52 +183,78 @@ namespace UniUSBSQMServer
             _serialPort.PortName = _serialPortName;
             _serialPort.BaudRate = 115200;
 
-            if (!_serialPort.IsOpen)
+            if (_serialPortName == "Simulator")
             {
-                 //attach Event Listener
-                _serialPort.DataReceived += SerialDataReceivedHandler;
-                
-                //Open the port
-                _serialPort.Open();
+                SimulateManager.Connect();
 
-                if (_serialPort.IsOpen)
+                _connectionState = SerialConnectedStates.Connected; // "connected";
+
+                SimulateManager.GetMessageIx();
+                SimulateManager.GetMessageRx();
+                SimulateManager.GetMessageUx();
+
+                _refreshTimer.Start();
+
+            }
+            else
+            {
+                if (!_serialPort.IsOpen)
                 {
-                    _connectionState = SerialConnectedStates.Connected; // "connected";
+                     //attach Event Listener
+                    _serialPort.DataReceived += SerialDataReceivedHandler;
+                
+                    //Open the port
+                    _serialPort.Open();
 
-                    //Get unit information
-                    SendCommand("ix");
+                    if (_serialPort.IsOpen)
+                    {
+                        _connectionState = SerialConnectedStates.Connected; // "connected";
+
+                        //Get unit information
+                        SendCommand("ix");
                 
-                    //Get an initial reading for rx
-                    SendCommand("rx");
+                        //Get an initial reading for rx
+                        SendCommand("rx");
                 
-                    //Get an initial reading for ux
-                    SendCommand("ux");
+                        //Get an initial reading for ux
+                        SendCommand("ux");
                 
-                    //start the timer
-                    _refreshTimer.Start();
+                        //start the timer
+                        _refreshTimer.Start();
+                    }
                 }
             }
+
             TriggerSerialStateChangeEvent();
         }
 
         private void SerialPortClose()
         {
-            if (_serialPort.IsOpen)
+            if (_serialPortName == "Simulator")
             {
-                //stop the timer
-                _refreshTimer.Stop();
-                
-                //Detach Event Listener
-                _serialPort.DataReceived -= SerialDataReceivedHandler;
-                
-                //Close the port
-                _serialPort.Close();
-                _connectionState = SerialConnectedStates.Disconnected; // "disconnected";
+                SimulateManager.Disconnect();
+                _connectionState = SerialConnectedStates.Disconnected;
                 TriggerSerialStateChangeEvent();
+            }
+            else
+            {
+                if (_serialPort.IsOpen)
+                {
+                    //stop the timer
+                    _refreshTimer.Stop();
+                
+                    //Detach Event Listener
+                    _serialPort.DataReceived -= SerialDataReceivedHandler;
+                
+                    //Close the port
+                    _serialPort.Close();
+                    _connectionState = SerialConnectedStates.Disconnected; // "disconnected";
+                    TriggerSerialStateChangeEvent();
+                }
             }
         }
 
-        private static void SerialDataReceivedHandler(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        private static void SerialDataReceivedHandler(object? sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             if (instance == null) return;
 
@@ -245,6 +285,39 @@ namespace UniUSBSQMServer
             instance.TriggerSerialPollEnd();
         }
 
+        private static void SimulatorDataReceivedHandler(object? sender, SimulatorDataReceivedEventArgs e)
+        {
+            if (instance == null) return;
+
+            string data = e.Data;
+
+            //Update the latest SQM Readings Store
+
+            if (data.StartsWith("i,"))
+            {
+                //ix command
+                instance._noResponseTimer.Stop();
+                SQMLatestMessageReading.SetReading("ix", data);
+            }
+            else if (data.StartsWith("r,"))
+            {
+                //rx command
+                instance._noResponseTimer.Stop();
+                SQMLatestMessageReading.SetReading("rx", data);
+            }
+            else if (data.StartsWith("u,"))
+            {
+                //ux command
+                instance._noResponseTimer.Stop();
+                SQMLatestMessageReading.SetReading("ux", data);
+
+            }
+
+            instance.TriggerSerialDataReceivedEvent(data);
+            instance.TriggerSerialPollEnd();
+
+        }
+
         public static bool SendCommand(string command )
         {
             if (instance == null) return false;
@@ -257,6 +330,26 @@ namespace UniUSBSQMServer
                 return false;
             }
 
+
+            //Simulator
+            if (_serialPortName == "Simulator")
+            {
+                instance.TriggerSerialPollBegin();
+                switch (command)
+                    {
+                    case "ix":
+                        SimulateManager.GetMessageIx();
+                        return true;
+                    case "rx":
+                        SimulateManager.GetMessageRx();
+                        return true;
+                    case "ux":
+                        SimulateManager.GetMessageUx();
+                        return true;
+                }
+            }
+
+            //Non Simulator
             retry_send_message:
 
             //Unit Information
