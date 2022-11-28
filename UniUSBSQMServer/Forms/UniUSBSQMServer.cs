@@ -8,6 +8,7 @@ namespace UniUSBSQMServer.Forms
         readonly DataStore? store;
         readonly Trend? trend;
         readonly SettingsManager settings;
+        readonly SimulateManager simulate;
 
         public UniUSBSQMServer()
         {
@@ -18,6 +19,7 @@ namespace UniUSBSQMServer.Forms
             serial = SerialManager.Instance;
             manager = NetworkManager.Instance;
             store = DataStore.Store;                    //Need this initilised or the logging config form doesn't work as no settings loaded.
+            simulate= SimulateManager.Instance;
 
             //Setup Form controls
             labelSerialInterval.Text = (SettingsManager.SerialPortInterval).ToString();
@@ -69,6 +71,17 @@ namespace UniUSBSQMServer.Forms
             labelSerialInterval.Text = SettingsManager.SerialPortInterval.ToString();
             //Server
             labelServerPort.Text = SettingsManager.ServerPort.ToString();
+
+            //Simulator
+            if (SettingsManager.SerialPortName == "Simulator")
+            {
+                labelSimulateRate.Visible = true;
+                trackBarSimulateRate.Visible = true;
+            } else
+            {
+                labelSimulateRate.Visible = false;
+                trackBarSimulateRate.Visible = false;
+            }
         }
 
         private void Store_DataStoreCleared(object? sender, EventArgs e)
@@ -290,7 +303,7 @@ namespace UniUSBSQMServer.Forms
         private static bool ValidSerialPort()
         {
             //Check Port name found on System
-            if (System.IO.Ports.SerialPort.GetPortNames().Contains(SettingsManager.SerialPortName))
+            if ((System.IO.Ports.SerialPort.GetPortNames().Contains(SettingsManager.SerialPortName)) || (SettingsManager.SerialPortName == "Simulator"))
             {
                 return true;
             } else
@@ -508,5 +521,9 @@ namespace UniUSBSQMServer.Forms
 
         }
 
+        private void trackBarSimulateRate_ValueChanged(object sender, EventArgs e)
+        {
+            SimulateManager.SetSimulateRate(Convert.ToDouble(trackBarSimulateRate.Value));
+        }
     }
 }

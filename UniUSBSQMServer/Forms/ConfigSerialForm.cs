@@ -14,10 +14,13 @@ namespace UniUSBSQMServer.Forms
             comboBoxSerialPorts.Items.Clear();
             comboBoxSerialPorts.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
 
-            if (comboBoxSerialPorts.Items.Count <=0)
+            //Add the Simulate Port
+            comboBoxSerialPorts.Items.Add($"Simulator");
+
+            if (comboBoxSerialPorts.Items.Count <=1)
             {
                 //Show an error if the system reports no Serial Ports
-                MessageBox.Show("No Serial Ports Detected.","Serial Port Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("No Serial Ports Detected. Only Simulator is available","Serial Port Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             else
             {
@@ -52,7 +55,7 @@ namespace UniUSBSQMServer.Forms
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            SettingsManager.SerialPortName = comboBoxSerialPorts.SelectedItem.ToString()??"COM1";
+            SettingsManager.SerialPortName = comboBoxSerialPorts.SelectedItem.ToString()??"Simulator"; //Set the default to simulator
             SettingsManager.SerialPortInterval = Convert.ToInt32(Math.Round(numericUpDownInterval.Value,0));
             SettingsManager.EndSettingsChange();
         }

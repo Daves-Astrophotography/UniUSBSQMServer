@@ -31,9 +31,9 @@ namespace UniUSBSQMServer
         }
 
         //Constants
+        public const int SERIAL_POLL_MINIMUM_INTERVAL_SECONDS = 1;
         public const int SERIAL_POLL_MAXIMUM_INTERVAL_SECONDS = 3600;
-        public const int SERIAL_POLL_MINIMUM_INTERVAL_SECONDS = 10;
-
+        
         public const int LOGGING_MINIMUM_INTERVAL_SECONDS = 1;
         public const int LOGGING_MAXIMUM_INTERVAL_SECONDS = 3600;
 
@@ -339,8 +339,8 @@ namespace UniUSBSQMServer
             if (setting == null)
             {
                 settings.Remove("SerialPortName");
-                settings.Add("SerialPortName", "COM1");
-                _comPortName = "COM1";
+                settings.Add("SerialPortName", "Simulator");  // Default to Simulator
+                _comPortName = "Simulator";
             }
             else
             {
@@ -635,7 +635,6 @@ namespace UniUSBSQMServer
                 _fileLoggingCustomPath = setting.Value;
             }
 
-
             configFile.Save(ConfigurationSaveMode.Full);
         }
 
@@ -708,7 +707,6 @@ namespace UniUSBSQMServer
             settings.Add("FileLoggingCustomPath", _fileLoggingCustomPath);
             settings.Remove("FileLoggingEnabled");
             settings.Add("FileLoggingEnabled", _fileLoggingEnabled.ToString());
-
 
             configFile.Save(ConfigurationSaveMode.Full);
             if (instance != null)
